@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema } from "../../schemas/login-schema";
+import { loginSchema } from "../../types/login-schema";
 import { useForm } from "react-hook-form";
 
 export function LoginForm() {
@@ -45,14 +45,6 @@ export function LoginForm() {
           {errors.password?.message}
         </p>
       </div>
-
-      <div className="flex items-center space-x-2">
-        <input id="remember" type="checkbox" />
-        <label htmlFor="remember" className="text-sm font-semibold">
-          lembre-me
-        </label>
-      </div>
-
       <button
         type="submit"
         className="w-[80%] cursor-pointer rounded-xl bg-purple-700 py-3 font-semibold transition duration-150 ease-in hover:bg-purple-600"

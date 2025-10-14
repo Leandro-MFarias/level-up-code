@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "../../schemas/register-schema";
+import { registerSchema } from "../../types/register-schema";
 import { useForm } from "react-hook-form";
 
 export function RegisterForm() {

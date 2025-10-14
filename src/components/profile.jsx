@@ -1,7 +1,6 @@
 import profile from "../assets/profile-default.jpg";
 
 import { FaPen } from "react-icons/fa";
-import { FaFire } from "react-icons/fa6";
 import { LiaDumbbellSolid } from "react-icons/lia";
 import { BiWorld } from "react-icons/bi";
 
@@ -19,10 +18,6 @@ export function Profile() {
 
       {/* STRICKS */}
       <div className="flex flex-col items-center space-y-6 pt-10 sm:flex-row sm:space-y-0 sm:space-x-6 sm:pt-0">
-        <div className="flex w-60 justify-center space-x-2 rounded-md border-2 border-neutral-600/80 bg-zinc-700/50 py-3 pl-8">
-          <FaFire className="text-3xl" />
-          <p className="flex-1 self-end text-xl font-bold">0 Streak</p>
-        </div>
         <div className="flex w-60 justify-center space-x-2 rounded-md border-2 border-neutral-600/80 bg-zinc-700/50 py-3 pl-8">
           <LiaDumbbellSolid className="text-3xl" />
           <p className="flex-1 self-end text-xl font-bold">0 Exercícios</p>

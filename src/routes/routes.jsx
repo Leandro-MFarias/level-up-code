@@ -1,19 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { HomePage } from "../HomePage";
-import { LoginPage } from "../LoginPage";
-import { RegisterPage } from "../RegisterPage";
-import { ProfilePage } from "../ProfilePage";
-import { DailyPage } from "../DailyPage";
-import { ExercisesPage } from "../ExercisesPage";
-import { TeacherPage } from "../TeacherPage";
+import { HomePage } from "../pages/HomePage";
+import { LoginPage } from "../pages/LoginPage";
+import { RegisterPage } from "../pages/RegisterPage";
+import { ProfilePage } from "../pages/ProfilePage";
+import { ExercisesPage } from "../pages/ExercisesPage";
+import { TeacherPage } from "../pages/TeacherPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage /> 
-  },
-  {
-    path: "/login",
     element: <LoginPage />
   },
   {
@@ -21,8 +16,8 @@ const router = createBrowserRouter([
     element: <RegisterPage />
   },
   {
-    path: "/daily",
-    element: <DailyPage />
+    path: "/home",
+    element: <HomePage /> 
   },
   {
     path: "/exercises",

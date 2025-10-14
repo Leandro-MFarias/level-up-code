@@ -15,7 +15,7 @@ export function LoginPage() {
 
       {/* CONTAINER FORM  */}
       <div className="flex h-screen w-full flex-col items-center justify-center space-y-4">
-        <h1 className="text-3xl font-bold text-purple-600">LOGO AQUI</h1>
+        <h1 className="text-3xl font-bold text-purple-600">LevelUpCode</h1>
         <LoginForm />
         <Link to={"/register"}>
           <p className="text-center">
