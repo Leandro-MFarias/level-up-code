@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { LoginForm } from "../components/forms/loginForm";
+import { LoginForm } from "../_components/forms/loginForm";
 
 export function LoginPage() {
   return (

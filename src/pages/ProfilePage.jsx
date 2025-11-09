@@ -1,5 +1,5 @@
-import { NavBar } from "@/components/navBar";
-import { Profile } from "@/components/profile";
+import { NavBar } from "@/_components/navBar";
+import { Profile } from "@/_components/profile";
 
 export function ProfilePage() {
   return (

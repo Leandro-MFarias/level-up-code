@@ -1,5 +1,5 @@
-import { Journey } from "@/components/journey";
-import { NavBar } from "@/components/navBar";
+import { Journey } from "@/_components/journey";
+import { NavBar } from "@/_components/navBar";
 
 export function HomePage() {
   return (

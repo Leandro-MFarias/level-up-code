@@ -1,5 +1,5 @@
-import { NavBar } from "../components/navBar";
-import { Teacher } from "../components/teacher";
+import { NavBar } from "../_components/navBar";
+import { Teacher } from "../_components/teacher";
 
 export function TeacherPage() {
   return (
