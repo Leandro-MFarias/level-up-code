@@ -53,14 +53,8 @@ export function AuthProvider({ children }) {
     loadUser();
   }, []);
 
-  function logout() {
-    localStorage.removeItem("token");
-    setUser(null);
-    window.location.href = "/"; // redireciona pro login
-  }
-
   return (
-    <AuthContext.Provider value={{ user, isLoading, isError, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, isError, setUser }}>
       {children}
     </AuthContext.Provider>
   );

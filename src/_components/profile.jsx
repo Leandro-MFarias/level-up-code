@@ -13,10 +13,13 @@ import {
 import boy from "../assets/boy.png";
 import girl from "../assets/girl.png";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/context/useUser";
+import { Loader2 } from "lucide-react";
 
 export function Profile() {
   const [isOpen, setIsOpen] = useState(false);
   const [photo, setPhoto] = useState(profile);
+  const { user, isLoading } = useAuth();
 
   useEffect(() => {
     const savedPhoto = localStorage.getItem("profilePhoto");
@@ -50,12 +53,14 @@ export function Profile() {
         <div className="flex flex-col items-center space-y-6 pt-10 sm:flex-row sm:space-y-0 sm:space-x-6 sm:pt-0">
           <div className="flex w-60 justify-center space-x-2 rounded-md border-2 border-neutral-600/80 bg-zinc-700/50 py-3 pl-8">
             <LiaDumbbellSolid className="text-3xl" />
-            <p className="flex-1 self-end text-xl font-bold">0 Exercícios</p>
+            <p className="flex-1 self-end text-xl font-bold">
+              {isLoading ? <Loader2 /> : user.exerciciosCompletos.length} Exercícios
+            </p>
           </div>
-          <div className="flex w-60 justify-center space-x-2 rounded-md border-2 border-neutral-600/80 bg-zinc-700/50 py-3 pl-8">
+          {/* <div className="flex w-60 justify-center space-x-2 rounded-md border-2 border-neutral-600/80 bg-zinc-700/50 py-3 pl-8">
             <BiWorld className="text-3xl" />
             <p className="flex-1 self-end text-xl font-bold">0 Listas</p>
-          </div>
+          </div> */}
         </div>
       </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>

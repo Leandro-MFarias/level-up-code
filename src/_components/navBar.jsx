@@ -1,5 +1,5 @@
 import { useNavPage } from "@/store/navPages";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import journey from "../assets/journey.png";
 import bag from "../assets/bag.png";
@@ -9,7 +9,8 @@ import { useAuth } from "@/context/useUser";
 
 export function NavBar() {
   const { page, changePage } = useNavPage();
-  const { user, logout } = useAuth();
+  const { user, setUser } = useAuth();
+  const navigate = useNavigate();
 
   const navBar = [
     {
@@ -23,6 +24,12 @@ export function NavBar() {
       href: "/profile",
     },
   ];
+
+  function logout() {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/");
+  }
 
   return (
     <div className="flex w-full flex-col border-t border-neutral-700 py-2 lg:h-screen lg:w-70 lg:space-y-12 lg:border-r lg:px-4 lg:py-8">
@@ -58,12 +65,12 @@ export function NavBar() {
             </Link>
           )}
           <li
-            className={`group relative flex w-full cursor-pointer flex-col-reverse items-center justify-center rounded-md p-3 text-xl transition duration-150 ease-in hover:bg-zinc-700/50 lg:hidden lg:flex-row lg:justify-start lg:space-x-3 ${page === 3 ? "border-2 border-neutral-600/80 bg-zinc-700/50 font-semibold text-white" : ""}`}
+            className={`group relative flex w-full cursor-pointer flex-col-reverse items-center justify-center rounded-md p-3 text-xl transition duration-150 ease-in hover:bg-zinc-700/50 lg:hidden lg:flex-row lg:justify-start lg:space-x-3`}
           >
-            <img src={door} alt="" className="w-10" />
+            <img onClick={logout} src={door} alt="" className="w-10" />
             <button
+              type="button"
               className="absolute -top-12 hidden rounded-sm bg-zinc-700/50 px-2.5 text-center group-hover:block sm:-top-8 lg:static lg:block lg:bg-transparent lg:px-0"
-              onClick={logout}
             >
               Sair
             </button>

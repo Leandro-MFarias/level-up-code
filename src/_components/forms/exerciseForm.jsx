@@ -20,9 +20,11 @@ import { exerciseSchema } from "@/types/exercise-schema";
 import { useList } from "@/hooks/useList";
 import { useNewExercise } from "@/hooks/useExercise";
 import { toast } from "sonner";
+import { useAuth } from "@/context/useUser";
 
 export function ExerciseForm({ isOpen, setIsOpen }) {
-  const { data: lists } = useList();
+  const { user } = useAuth();
+  const { data: lists } = useList(user.id);
   const { mutateAsync: createExercise } = useNewExercise();
   const {
     register,

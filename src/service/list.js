@@ -9,9 +9,9 @@ export async function newList(data) {
   }
 }
 
-export async function getList() {
+export async function getList(id) {
   try {
-    const res = await api.get("/admin/exercise/list");
+    const res = await api.get(`/admin/exercise/list/${id}`);
     return res.data;
   } catch (error) {
     throw new Error(error.response.data.message);
