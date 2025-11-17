@@ -16,5 +16,6 @@ export function useList(id) {
   return useQuery({
     queryKey: ["lists", id],
     queryFn: () => listApi.getList(id),
+    refetchOnWindowFocus: false,
   });
 }

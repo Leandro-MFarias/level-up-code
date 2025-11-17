@@ -15,7 +15,7 @@ export function Teacher() {
 
   return (
     <>
-      <div className="jusfice-content-center grid-row-2 grid w-full flex-1 gap-10 px-10 py-20 md:grid-cols-[1fr_380px]">
+      <div className="jusfice-content-center grid-row-2 grid w-full flex-1 gap-10 px-10 py-20 md:grid-cols-[1fr_440px]">
         <div className="flex w-full flex-col items-center space-y-20 rounded-md border-2 border-neutral-700 px-6 py-6">
           {/* HEADER */}
           <div>

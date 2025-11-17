@@ -6,17 +6,15 @@ import { Loader2 } from "lucide-react";
 
 export function Journey() {
   const { user } = useAuth();
-  const { data: lists, isLoading } = useList(user.id);
+  const { data: lists, isLoading, isPending, isFetching } = useList(user.id);
 
-  if (isLoading) {
+  if (isLoading || isPending || isFetching) {
     return (
       <div className="flex h-[80vh] w-full items-center justify-center">
         <Loader2 className="animate-spin" size={50} />
       </div>
     );
   }
-
-  console.log(lists);
 
   return (
     <div className="flex flex-1 flex-col items-center space-y-20 overflow-y-auto py-10">

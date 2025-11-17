@@ -17,44 +17,42 @@ export function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    async function loadUser() {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          setIsLoading(false);
-          return;
-        }
-
-        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-        const decoded = decodeToken(token);
-        const userId = decoded?.id;
-        if (!userId) {
-          setIsLoading(false);
-          return;
-        }
-
-        const response = await api.get(`/auth/users/${userId}`);
-        setUser(response.data);
-
-        // 🔥 Se o usuário estiver logado e na página de login, redireciona manualmente
-        if (window.location.pathname === "/") {
-          window.location.href = "/home";
-        }
-      } catch (error) {
-        console.error("Erro ao buscar usuário:", error);
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
+  async function reloadUser() {
+    try {
+      setIsLoading(true);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setUser(null);
+        return;
       }
-    }
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    loadUser();
+      const decoded = decodeToken(token);
+
+      const userId = decoded?.id;
+
+      const response = await api.get(`/auth/users/${userId}`);
+      setUser(response.data);
+
+      if (window.location.pathname === "/") {
+        window.location.href = "/home";
+      }
+    } catch (error) {
+      console.error("Erro ao buscar usuário:", error);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    reloadUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, isError, setUser }}>
+    <AuthContext.Provider
+      value={{ user, isLoading, isError, setUser, reloadUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

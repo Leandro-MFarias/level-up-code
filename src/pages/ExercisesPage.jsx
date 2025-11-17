@@ -11,7 +11,7 @@ export function ExercisesPage() {
   const { id } = useParams();
   const { data: exercise, isLoading } = useExercise(id);
   const { mutateAsync: submitExercise, isPending } = useSubmitExercise();
-  const { user } = useAuth();
+  const { user, reloadUser } = useAuth();
 
   const [selected, setSelected] = useState("");
   const [feedback, setFeedback] = useState("");
@@ -37,8 +37,6 @@ export function ExercisesPage() {
         idExercicio: id,
         respostaUsuario: selected,
       });
-
-      console.log(data);
 
       if (data.respostaCorreta) {
         setIsCorrect(true);
@@ -139,13 +137,13 @@ export function ExercisesPage() {
             {isPending ? "Enviando..." : "Verificar"}
           </button>
         ) : isCorrect === true ? (
-          <Link to={`/home`}>
+          <Link to={`/home`} onClick={reloadUser}>
             <button className="w-56 cursor-pointer rounded-md bg-lime-500 py-3 transition duration-150 ease-in-out hover:bg-lime-600 disabled:opacity-60">
               Voltar para Home
             </button>
           </Link>
         ) : (
-          <Link to={`/home`}>
+          <Link to={`/home`} onClick={reloadUser}>
             <button className="w-56 cursor-pointer rounded-md bg-red-600 py-3 font-bold transition duration-150 ease-in-out hover:bg-red-500 disabled:opacity-60">
               Voltar para Home
             </button>
