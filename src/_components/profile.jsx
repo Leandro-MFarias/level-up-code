@@ -47,14 +47,15 @@ export function Profile() {
             <FaPen />
           </button>
         </div>
-        <p className="text-xl font-bold">Leandro Farias</p>
+        <p className="text-xl font-bold">{user.nome}</p>
 
         {/* STRICKS */}
         <div className="flex flex-col items-center space-y-6 pt-10 sm:flex-row sm:space-y-0 sm:space-x-6 sm:pt-0">
           <div className="flex w-60 justify-center space-x-2 rounded-md border-2 border-neutral-600/80 bg-zinc-700/50 py-3 pl-8">
             <LiaDumbbellSolid className="text-3xl" />
             <p className="flex-1 self-end text-xl font-bold">
-              {isLoading ? <Loader2 /> : user.exerciciosCompletos.length} Exercícios
+              {isLoading ? <Loader2 /> : user.exerciciosCompletos.length}{" "}
+              Exercícios
             </p>
           </div>
           {/* <div className="flex w-60 justify-center space-x-2 rounded-md border-2 border-neutral-600/80 bg-zinc-700/50 py-3 pl-8">

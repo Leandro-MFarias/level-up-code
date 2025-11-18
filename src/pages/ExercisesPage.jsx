@@ -56,14 +56,20 @@ export function ExercisesPage() {
     <div className="mx-auto flex max-w-7xl flex-col space-y-16 overflow-hidden">
       <div className="flex items-center justify-between px-4 pt-10">
         <Link to={"/home"}>
-          <IoClose className="text-5xl" />
+          <IoClose className="text-4xl md:text-5xl" />
         </Link>
-        <img src={trophy} alt="trofeu" />
+        <img
+          src={trophy}
+          alt="trofeu"
+          className="h-12 w-12 md:h-auto md:w-auto"
+        />
       </div>
 
-      <div className="flex h-[50vh] flex-col justify-between px-4">
+      <div className="flex h-[45vh] flex-col justify-between px-4 md:h-[50vh]">
         <div className="flex flex-col space-y-4">
-          <h1 className="text-3xl font-bold">{formater(exercise.tipo)}:</h1>
+          <h1 className="text-2xl font-bold md:text-3xl">
+            {formater(exercise.tipo)}:
+          </h1>
           <p className="pl-4 text-2xl md:pl-14">{exercise.pergunta}</p>
         </div>
         <div className="flex flex-col justify-center space-y-6 self-center md:flex-row md:space-x-6">
@@ -138,13 +144,13 @@ export function ExercisesPage() {
           </button>
         ) : isCorrect === true ? (
           <Link to={`/home`} onClick={reloadUser}>
-            <button className="w-56 cursor-pointer rounded-md bg-lime-500 py-3 transition duration-150 ease-in-out hover:bg-lime-600 disabled:opacity-60">
+            <button className="mb-2 w-56 cursor-pointer rounded-md bg-lime-500 py-3 transition duration-150 ease-in-out hover:bg-lime-600 disabled:opacity-60 md:mb-0">
               Voltar para Home
             </button>
           </Link>
         ) : (
           <Link to={`/home`} onClick={reloadUser}>
-            <button className="w-56 cursor-pointer rounded-md bg-red-600 py-3 font-bold transition duration-150 ease-in-out hover:bg-red-500 disabled:opacity-60">
+            <button className="mb-2 w-56 cursor-pointer rounded-md bg-red-600 py-3 font-bold transition duration-150 ease-in-out hover:bg-red-500 disabled:opacity-60 md:mb-0">
               Voltar para Home
             </button>
           </Link>

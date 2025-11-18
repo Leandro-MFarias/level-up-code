@@ -19,10 +19,10 @@ export function Journey() {
   return (
     <div className="flex flex-1 flex-col items-center space-y-20 overflow-y-auto py-10">
       {lists.map((list) => (
-        <div key={list.id} className="w-full px-10">
-          <div className="flex w-full items-center space-x-10 px-16 pb-16">
+        <div key={list.id} className="w-full md:px-10">
+          <div className="flex w-full items-center space-x-2 md:space-x-10 px-4 md:px-16 pb-16">
             <div className="h-[1px] w-full bg-neutral-600" />
-            <p className="text-center text-xl font-bold">{list.titulo}</p>
+            <p className="text-center text-xl font-bold min-w-[180px]">{list.titulo}</p>
             <div className="h-[1px] w-full bg-neutral-600" />
           </div>
           <div className="space-y-2">
