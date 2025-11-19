@@ -3,6 +3,7 @@ import { registerSchema } from "../../types/register-schema";
 import { useForm } from "react-hook-form";
 import { useRegister } from "@/hooks/auth-user";
 import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 export function RegisterForm() {
   const { mutateAsync: createAccount } = useRegister();
@@ -19,6 +20,7 @@ export function RegisterForm() {
     try {
       await createAccount(data);
       navigate("/");
+      toast.success("Usuário criado com sucesso!!")
     } catch (error) {
       console.error(error)
     }
