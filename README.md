@@ -1,6 +1,6 @@
 # 📘 Duolingo-Projeto - Documentação do Frontend
 
-Este documento descreve o fluxo atual do **frontend** da aplicação, suas rotas, interações de usuário e dependências utilizadas.
+Este documento descreve todo o funcionamento do **frontend**, incluindo páginas do **Aluno** e do **Professor**, fluxo de navegação, progressão dos exercícios e funcionalidades já integradas ao backend.
 
 ---
 
@@ -11,144 +11,191 @@ O projeto utiliza:
 - **React 19**
 - **React Router v7**
 - **React Hook Form + Zod** → formulários e validações
-- **TailwindCSS** → estilização
-- **Zustand** → gerenciamento de estado global simples
-- **React Icons** → ícones
-- **Vite** → bundler
+- **TailwindCSS**
+- **Zustand** → estado global simples
+- **React Icons**
+- **Vite**
 - **tw-animate-css** → animações
 
 ---
 
 ## 📍 Rotas da Aplicação
 
-Atualmente as rotas estão configuradas com **React Router**:
+### 🔹 **Rotas do Aluno**
 
 | Rota         | Componente       | Descrição |
 |--------------|------------------|-----------|
-| `/`          | `HomePage`       | Página principal (Jornada de aprendizado). |
-| `/login`     | `LoginPage`      | Página de autenticação (e-mail + senha). |
-| `/register`  | `RegisterPage`   | Página de cadastro de novos usuários. |
-| `/profile`   | `ProfilePage`    | Perfil do usuário (editar foto, dados pessoais). |
-| `/daily`     | `DailyPage`      | Desafio diário (pergunta de múltipla escolha). |
-| `/exercises` | `ExercisesPage`  | Página de exercícios (grupo de questões). |
+| `/`          | `HomePage`       | Jornada de aprendizado + progressão linear. |
+| `/login`     | `LoginPage`      | Autenticação. |
+| `/register`  | `RegisterPage`   | Cadastro. |
+| `/profile`   | `ProfilePage`    | Perfil do usuário com edição de foto e dados. |
+| `/exercises` | `ExercisesPage`  | Página dos exercícios do grupo atual. |
 
-> ⚠️ Ainda falta implementar as rotas do **professor**.
+---
+
+### 🔹 **Rotas do Professor**
+
+| Rota | Componente | Descrição |
+|------|------------|-----------|
+| `/professor` | `ProfessorHomePage` | Dashboard geral. |
+| `/professor/lists` | `ExerciseListManagerPage` | Gerenciar listas de exercícios. |
+| `/professor/lists/new` | `CreateExerciseListPage` | Criar nova lista. |
+| `/professor/groups/new` | `CreateExerciseGroupPage` | Criar novo grupo (3 exercícios). |
+| `/professor/exercises/new` | `CreateExercisePage` | Criar exercícios individualmente. |
+| `/professor/users` | `UsersListPage` | Ver todos os alunos. |
+| `/professor/users/:id` | `UserProgressPage` | Ver detalhes do progresso de um usuário. |
+
+Todas já funcionando e integradas com o backend.
 
 ---
 
 ## 🧭 Estrutura de Navegação
 
-### 🔹 NavBar  
-Presente em todas as páginas **exceto**: Login, Registro e Exercícios.
+### 🔹 NavBar (Aluno)
+Aparece em todas as páginas exceto: Login, Registro e Exercícios.
 
-- **Itens:**
-  - Jornada → `/`
-  - Desafio diário → `/daily`
-  - Perfil → `/profile`
-  - Sair → `/login`
+- Jornada → `/`
+- Perfil → `/profile`
+- Sair → Logout
 
-O estado da página ativa é controlado via **Zustand** (`useNavPage`).
+Gerenciada por Zustand (`useNavPage`).
+
+---
+
+### 🔹 Sidebar (Professor)
+Exibe:
+
+- Criar listas  
+- Criar grupos  
+- Criar exercícios  
+- Usuários  
+- Dashboard  
 
 ---
 
 ## 📝 Detalhes das Páginas
 
 ### 🔐 LoginPage (`/login`)
-- Campos:
-  - **E-mail**
-  - **Senha**
-  - Checkbox "Lembre-me"
-- Botão **Entrar**
-- Link para registro (`/register`)
+- E-mail  
+- Senha  
+- Lembre-me  
+- Validação com Zod  
+- Autenticação integrada ao backend  
+
+---
 
 ### 🆕 RegisterPage (`/register`)
-- Campos:
-  - **Nome completo** (obrigatório: nome + sobrenome)
-  - **E-mail**
-  - **Senha**
-  - **Confirmar senha**
-- Botão **Cadastrar**
-- Redireciona para `/login` após cadastro.
+Cadastro com:
+
+- Nome completo  
+- E-mail  
+- Senha  
+- Confirmar Senha  
 
 ---
 
-### 🏠 HomePage / Journey (`/`)
-Página principal com a jornada de aprendizado.
+## 🏠 HomePage / Jornada (`/`)
+Mostra a **progressão linear do usuário**:
 
-- Exibe grupos de exercícios em **blocos circulares**:
-  - **Verde** → já concluído
-  - **Roxo** → grupo atual do usuário
-  - **Cinza** → bloqueado/não disponível ainda
-- Grupo atual exibe um **balão "START"**.
-- Ao clicar em um grupo desbloqueado, o usuário vai para `/exercises`.
+- **Verde** → grupo concluído  
+- **Roxo** → grupo atual (com botão **START**)  
+- **Cinza** → bloqueado  
 
----
-
-### ⏳ DailyPage (`/daily`)
-Desafio diário no formato de múltipla escolha.
-
-- Exibe **pergunta única** (muda diariamente).
-- Quatro opções de resposta (checkbox).
-- Botão **Enviar** → retorna se a resposta está correta ou incorreta.
-- Ter um contador de stricks.
+Ao clicar em um grupo desbloqueado → `/exercises`.
 
 ---
 
-### 👤 ProfilePage (`/profile`)
-- Edição de perfil do usuário.
-- Alterar foto e dados pessoais.
+## 📚 ExercisesPage (`/exercises`)
+
+Fluxo:
+
+1. Usuário responde exercício.  
+2. Se acertar → próximo.    
+3. Próximo exercício é desbloqueado.  
+4. Interface mostra:
+   - Exercícios concluídos  
+   - Exercício atual  
+   - Bloqueados (com cor correspondente)
+
+Status puxados do backend.
 
 ---
 
-### 📚 ExercisesPage (`/exercises`)
-- Página de um grupo de exercícios.
-- Cada grupo contém **3 questões** (com diferentes tipos de perguntas).
-- Fluxo:
-  1. Usuário responde questão.
-  2. Se acertar → vai para próxima questão.
-  3. Ao concluir todas → grupo marcado como **concluído**.
-  4. Usuário pode:
-     - Avançar para próximo grupo.
-     - Voltar para HomePage.
+## 👤 ProfilePage (`/profile`)
+- Trocar foto  
+- Editar dados  
+- Exibir estatísticas:
+  - Total de exercícios concluídos  
+  - Progresso atual  
 
 ---
 
-## 🔄 Fluxo do Usuário
+# 📚 Funcionalidades do Professor
 
-1. **Cadastro/Login**  
-   - Usuário cria conta ou faz login.  
-   - Pode marcar "Lembre-me" para persistir sessão.  
-
-2. **Jornada (HomePage)**  
-   - Usuário visualiza seu progresso.  
-   - Pode acessar grupo de exercícios atual ou passados.  
-
-3. **Exercícios**  
-   - Usuário responde questões de programação.  
-   - Ao concluir, grupo fica marcado como completo.  
-
-4. **Desafio Diário**  
-   - Pergunta diária única para reforçar aprendizado.  
-
-5. **Perfil**  
-   - Usuário pode editar informações e trocar foto.  
-
-6. **Logout**  
-   - Feito pelo menu ou botão "Sair".  
+## 🎓 Dashboard do Professor
+Mostra:
 
 ---
 
-## 📌 Observações Importantes para o Backend
+## 📝 Criar Listas (`/professor/lists/new`)
+Professor cria uma lista com:
 
-- Será necessário **persistir progresso do usuário**:
-  - Quais grupos foram concluídos.
-  - Qual grupo está desbloqueado/atual.
-  - Resultado do desafio diário.
-- Autenticação com **e-mail e senha**.
-- Perfil deve armazenar:
-  - Nome completo
-  - Foto
-  - E-mail
-  - Senha (hash)
-- Exercícios e perguntas devem ser **dinâmicos** (vir do backend).  
-- Desafio diário deve ser **atualizado a cada dia**.
+- Título  
+- Descrição  
+
+---
+
+## 🧠 Criar Exercícios (`/professor/exercises/new`)
+- Tipos:
+  - múltipla escolha  
+  - verdadeiro/falso  
+  - preencher espaço  
+- Define opções  
+- Define resposta correta
+- Qual Lista
+
+---
+
+## 👥 Ver Usuários (`/professor/users`)
+- Lista todos os alunos  
+- Abre progresso individual:
+  - Exercício concluídos  
+  - Exercício atual  
+  - Exercícios respondidos  
+  - Acertos e erros  
+
+---
+
+# 🔄 Fluxo do Usuário
+
+1. Login  
+2. Jornada → vê progresso  
+3. Faz exercícios  
+4. Avança para próximos grupos   
+6. Edita perfil  
+7. Logout  
+
+---
+
+# 🔄 Fluxo do Professor
+
+1. Login  
+2. Dashboard  
+3. Criar listas  
+4. Criar grupos  
+5. Criar exercícios  
+6. Acompanhar progresso dos alunos  
+
+---
+
+# 🗄️ Integração com Backend
+
+Frontend já está integrado ao backend em:
+
+- Login e registro  
+- Atualização de perfil   
+- Progresso completo dos exercícios  
+- Criação de listas, grupos e exercícios  
+- Dashboard do Professor  
+- Progressão linear
+- Resposta e feedback 
